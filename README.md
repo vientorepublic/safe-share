@@ -1,8 +1,12 @@
 # SafeShare
 
-Official Site/Demo: https://safe-share.cc/
+[![License](https://img.shields.io/badge/License-MIT-blue)](#license)
+[![stars - safe-share](https://img.shields.io/github/stars/vientorepublic/safe-share?style=social)](https://github.com/vientorepublic/safe-share)
+[![forks - safe-share](https://img.shields.io/github/forks/vientorepublic/safe-share?style=social)](https://github.com/vientorepublic/safe-share)
 
 <img width="1121" alt="Screenshot 2024-08-29 at 11 47 59 AM" src="https://github.com/user-attachments/assets/93313262-d20e-4da8-b2d1-a9407a4807c4">
+
+Official Site/Demo: https://safe-share.cc/
 
 SafeShare is a file sharing service that fully complies with the end-to-end encryption
 implementation and reads and encrypts files based on the browser Javascript API
@@ -53,3 +57,7 @@ npm run build
 ```
 npm run dev
 ```
+
+# License
+
+This project is released under the MIT License.
