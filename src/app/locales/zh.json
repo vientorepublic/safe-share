@@ -37,19 +37,5 @@
   "E2E_ENCRYPTION_DESCRIPTION": "用于保护您的文件的所有加密/解密均由您的浏览器处理。",
   "CONVENIENT_SHARING_LINK": "Convenient sharing link",
   "CONVENIENT_SHARING_LINK_DESCRIPTION": "根据上传者的选择，可以选择将加密密钥合并到共享链接中。",
-  "QNA_01_TITLE": "这是什么？",
-  "QNA_01_DESCRIPTION_01": "该项目是一个 100% 匿名文件共享服务，旨在对抗某些组织（包括政府机构）的监视和审查。",
-  "QNA_01_DESCRIPTION_02": "所有用户数据均使用 AES-256-CBC 算法进行加密，所有加密/解密操作（包括加密密钥生成）均在浏览器中处理。",
-  "QNA_02_TITLE": "有 Tor 网站吗？",
-  "QNA_02_DESCRIPTION_01": "不，它还不存在于 Tor 网络上，但它将在未来商业化以提供更多的上传容量。",
-  "QNA_03_TITLE": "我如何回应执法部门的合作请求？",
-  "QNA_03_DESCRIPTION_01": "如前所述，所有加密都是在浏览器中处理的，因此上传到服务器的所有文件都是加密数据，没有加密密钥。因此，也没有数据可以提供给执法机构。",
-  "QNA_04_TITLE": "您对儿童性犯罪有何反应？",
-  "QNA_04_DESCRIPTION_01": "是的，我们将严格处理所有儿童性犯罪相关文件（视频、照片等）的举报。",
-  "QNA_04_DESCRIPTION_02": "您可以在此处报告，系统会要求您提供文件标识符和加密密钥。",
-  "WAITING_FOR_RESPONSE": "等待回复...",
-  "SERVICE_STATUS": "服务状态",
-  "TECHNICAL_DOCS": "技术文档",
-  "SAFETY_TOP_PRIORITY_01": "您的信任对我们非常重要。",
-  "SAFETY_TOP_PRIORITY_02": "您可以访问技术文档来披露如何保护您的信息。"
+  "WAITING_FOR_RESPONSE": "等待回复..."
 }

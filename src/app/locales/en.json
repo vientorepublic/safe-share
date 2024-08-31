@@ -37,19 +37,5 @@
   "E2E_ENCRYPTION_DESCRIPTION": "All encryption/decryption to protect files is handled by the user's browser.",
   "CONVENIENT_SHARING_LINK": "Convenient sharing link",
   "CONVENIENT_SHARING_LINK_DESCRIPTION": "Depending on the uploader's choice, the encryption key can be optionally merged into the shared link.",
-  "QNA_01_TITLE": "What's this?",
-  "QNA_01_DESCRIPTION_01": "This project is a 100% anonymous file sharing service to combat surveillance and censorship by certain organizations, including government agencies.",
-  "QNA_01_DESCRIPTION_02": "All user data is encrypted using the AES-256-CBC algorithm, and all encryption/decryption tasks, including encryption key generation, are handled in the browser.",
-  "QNA_02_TITLE": "Is there a Tor website?",
-  "QNA_02_DESCRIPTION_01": "No, it does not exist on the Tor network yet, but it will be commercialized in the future to provide more upload capacity.",
-  "QNA_03_TITLE": "How do we respond to requests for cooperation from law enforcement agencies?",
-  "QNA_03_DESCRIPTION_01": "As explained earlier, all encryption is processed in the browser, so all files uploaded to the server are encrypted data without an encryption key. Therefore, there is also no data that can be provided to law enforcement agencies.",
-  "QNA_04_TITLE": "Do we respond to child sex crimes?",
-  "QNA_04_DESCRIPTION_01": "Yes, we will strictly process reports of all child sex crime-related files (videos, photos, etc.).",
-  "QNA_04_DESCRIPTION_02": "Reports can be made here, and the reporter must provide the file identifier and encryption key.",
-  "WAITING_FOR_RESPONSE": "Waiting for response...",
-  "SERVICE_STATUS": "Service Status",
-  "TECHNICAL_DOCS": "Technical Docs",
-  "SAFETY_TOP_PRIORITY_01": "Your trust is very important to us.",
-  "SAFETY_TOP_PRIORITY_02": "You can access your technical documentation to disclose how your information is protected."
+  "WAITING_FOR_RESPONSE": "Waiting for response..."
 }
