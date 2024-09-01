@@ -3,6 +3,7 @@ import { FileDetails, IErrorResponse, ILinkPageParams } from "@/app/types";
 import MimeTypeIcon from "@/app/components/icon.component";
 import Spinner from "@/app/components/spinner.component";
 import { CryptoStreamError } from "@/app/utility/error";
+import useBrowserDetect from "@/app/utility/useragent";
 import Alert from "@/app/components/alert.component";
 import { useEffect, useRef, useState } from "react";
 import { BrowserStore } from "@/app/store/browser";
@@ -26,6 +27,8 @@ export default function LinkPage({ params }: { params: ILinkPageParams }) {
   const { id } = params;
   const t = useTranslations();
   const lang = getCookie("language") || fallback;
+  const browserDetection = useBrowserDetect();
+  const isSafari = browserDetection.isSafari();
   const { unsupportedBrowser } = BrowserStore();
   const abortController = useRef<AbortController>(new AbortController());
   const [identifier, setIdentifier] = useState<string>("");
@@ -74,7 +77,7 @@ export default function LinkPage({ params }: { params: ILinkPageParams }) {
   }, [lang, id]);
 
   const decryptProgressCallback = (progress: number): void => {
-    setDecryptProgress(progress);
+    if (!isSafari) setDecryptProgress(progress);
   };
 
   async function download(identifier: string, key: string): Promise<void> {
@@ -195,7 +198,7 @@ export default function LinkPage({ params }: { params: ILinkPageParams }) {
               <Spinner />
             </div>
           )}
-          {downloading ? (decrypting ? `${decryptProgress.toFixed(2)}%` : t("WAITING_FOR_RESPONSE")) : t("DOWNLOAD")}
+          {downloading ? (decrypting ? (!isSafari ? `${decryptProgress.toFixed(2)}%` : "Downloading...") : t("WAITING_FOR_RESPONSE")) : t("DOWNLOAD")}
         </button>
         {downloading && (
           <button

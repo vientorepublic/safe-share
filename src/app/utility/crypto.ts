@@ -91,7 +91,8 @@ export class Crypto {
           } else {
             const decryptedChunk = new Uint8Array(decipher.update(value));
             processedBytes += value.length;
-            onProgress((processedBytes / totalBytes) * 100);
+            const progress = (processedBytes / totalBytes) * 100;
+            onProgress(progress);
             controller.enqueue(decryptedChunk);
           }
         },
