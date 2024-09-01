@@ -5,6 +5,7 @@ import { FileDownloadForm, IErrorResponse } from "../types";
 import InfoComponent from "../components/info.component";
 import Spinner from "../components/spinner.component";
 import { CryptoStreamError } from "../utility/error";
+import useBrowserDetect from "../utility/useragent";
 import Alert from "../components/alert.component";
 import { useReCaptcha } from "next-recaptcha-v3";
 import { BrowserStore } from "../store/browser";
@@ -26,6 +27,8 @@ const crypto = new Crypto();
 export default function Home() {
   const t = useTranslations();
   const lang = getCookie("language") || fallback;
+  const browserDetection = useBrowserDetect();
+  const isSafari = browserDetection.isSafari();
   const { unsupportedBrowser } = BrowserStore();
   const abortController = useRef<AbortController>(new AbortController());
   const { register, handleSubmit } = useForm<FileDownloadForm>();
@@ -35,7 +38,7 @@ export default function Home() {
   const { executeRecaptcha } = useReCaptcha();
 
   const decryptProgressCallback = (progress: number): void => {
-    setDecryptProgress(progress);
+    if (!isSafari) setDecryptProgress(progress);
   };
 
   async function download(data: FileDownloadForm): Promise<void> {
@@ -150,7 +153,13 @@ export default function Home() {
                   <Spinner />
                 </div>
               )}
-              {downloading ? (decrypting ? `${decryptProgress.toFixed(2)}%` : t("WAITING_FOR_RESPONSE")) : t("DOWNLOAD")}
+              {downloading
+                ? decrypting
+                  ? !isSafari
+                    ? `${decryptProgress.toFixed(2)}%`
+                    : "Downloading..."
+                  : t("WAITING_FOR_RESPONSE")
+                : t("DOWNLOAD")}
             </button>
             {downloading && (
               <button
