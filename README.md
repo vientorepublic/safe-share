@@ -8,6 +8,8 @@
 
 Official Site/Demo: https://safe-share.cc/
 
+[Backend Server Repository](https://github.com/vientorepublic/safeshare-backend)
+
 SafeShare is a file sharing service that fully complies with the end-to-end encryption
 implementation and reads and encrypts files based on the browser Javascript API
 
