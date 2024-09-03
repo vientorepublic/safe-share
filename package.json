@@ -1,7 +1,10 @@
 {
   "name": "safe-share",
   "version": "0.1.0",
+  "description": "E2EE file sharing supporting encryption/decryption in browser",
+  "author": "vientorepublic",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "dev": "NEXT_PUBLIC_CURRENT_GIT_SHA=`git rev-parse --short HEAD` NEXT_PUBLIC_CURRENT_GIT_BRANCH=`git branch --show-current` next dev",
     "build": "NEXT_PUBLIC_CURRENT_GIT_SHA=`git rev-parse --short HEAD` NEXT_PUBLIC_CURRENT_GIT_BRANCH=`git branch --show-current` next build",
