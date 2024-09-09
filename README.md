@@ -4,7 +4,7 @@
 [![stars - safe-share](https://img.shields.io/github/stars/vientorepublic/safe-share?style=social)](https://github.com/vientorepublic/safe-share)
 [![forks - safe-share](https://img.shields.io/github/forks/vientorepublic/safe-share?style=social)](https://github.com/vientorepublic/safe-share)
 
-<img width="1121" alt="Screenshot 2024-08-29 at 11 47 59 AM" src="https://github.com/user-attachments/assets/93313262-d20e-4da8-b2d1-a9407a4807c4">
+![1725925969747](https://github.com/user-attachments/assets/d423fbfd-39db-44d0-a5da-fd17639f8661)
 
 Official Site/Demo: https://safe-share.cc/
 
@@ -15,6 +15,7 @@ implementation and reads and encrypts files based on the browser Javascript API
 
 > [!NOTE]  
 > Safari browser is currently not supported due to technical issues.
+> Options for blocking unsupported browsers can be found below.
 
 # Features
 
