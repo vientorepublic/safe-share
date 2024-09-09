@@ -2,13 +2,16 @@ import { createCipheriv, createDecipheriv, randomBytes } from "crypto";
 import { CryptoStreamError } from "./error";
 import { ISplitKey } from "../types";
 
+const KEY_SIZE = 32;
+const IV_SIZE = 16;
+
 export class Crypto {
   public generateKey(): Buffer {
-    return randomBytes(16);
+    return randomBytes(KEY_SIZE);
   }
 
   public generateIV(): Buffer {
-    return randomBytes(8);
+    return randomBytes(IV_SIZE);
   }
 
   public generateHexKey(): string {
@@ -17,94 +20,90 @@ export class Crypto {
     return key + iv;
   }
 
-  public splitHexKey(str: string): ISplitKey {
-    const key = str.substring(32, 0);
-    const iv = str.substring(32);
-    return {
-      key,
-      iv,
-    };
+  public splitHexKey(hexString: string): ISplitKey {
+    if (hexString.length !== (KEY_SIZE + IV_SIZE) * 2) {
+      throw new Error("Invalid key length. The key should include both the 32-byte key and 16-byte IV.");
+    }
+    const key = hexString.substring(0, KEY_SIZE * 2);
+    const iv = hexString.substring(KEY_SIZE * 2);
+    return { key, iv };
   }
 
   public async encryptStream(
-    key: string,
+    hexKey: string,
     reader: ReadableStreamDefaultReader<Uint8Array>,
     totalSize: number,
     onProgress: (progress: number) => void
   ): Promise<Blob> {
     try {
-      const split = this.splitHexKey(key);
-      const cipher = createCipheriv("aes-256-cbc", split.key, split.iv);
-      const chunks: Uint8Array[] = [];
-      let totalLength = 0;
-      let encryptedLength = 0;
+      const { key, iv } = this.splitHexKey(hexKey);
+      const cipher = createCipheriv("aes-256-cbc", Buffer.from(key, "hex"), Buffer.from(iv, "hex"));
+
+      const chunks: Buffer[] = [];
+      let encryptedBytes = 0;
       let { done, value } = await reader.read();
-      while (!done && value) {
-        const encryptedChunk = cipher.update(value);
-        chunks.push(encryptedChunk);
-        totalLength += encryptedChunk.length;
-        encryptedLength += value.length;
-        const progress = (encryptedLength / totalSize) * 100;
-        onProgress(progress);
+
+      while (!done) {
+        if (value) {
+          const encryptedChunk = cipher.update(value);
+          chunks.push(encryptedChunk);
+          encryptedBytes += value.length;
+          onProgress((encryptedBytes / totalSize) * 100);
+        }
         ({ done, value } = await reader.read());
       }
-      const final = cipher.final();
-      if (final.length > 0) {
-        chunks.push(final);
-        totalLength += final.length;
+
+      const finalChunk = cipher.final();
+      if (finalChunk.length > 0) {
+        chunks.push(finalChunk);
       }
-      const encryptedData = new Uint8Array(totalLength);
-      let offset = 0;
-      for (const chunk of chunks) {
-        encryptedData.set(chunk, offset);
-        offset += chunk.length;
-      }
+
+      const encryptedData = Buffer.concat(chunks);
       return new Blob([encryptedData]);
-    } catch (err) {
-      console.error(err);
-      throw new CryptoStreamError("An error occurred during encryption. Check your browser console.");
+    } catch (error) {
+      console.error(error);
+      throw new CryptoStreamError("Encryption failed. See console for details.");
     } finally {
       reader.releaseLock();
     }
   }
 
   public async decryptStream(
-    key: string,
+    hexKey: string,
     reader: ReadableStreamDefaultReader<Uint8Array>,
-    totalBytes: number,
+    totalSize: number,
     onProgress: (progress: number) => void
   ): Promise<Blob> {
     try {
-      const split = this.splitHexKey(key);
-      const decipher = createDecipheriv("aes-256-cbc", split.key, split.iv);
-      let processedBytes = 0;
-      const decryptedStream = new ReadableStream<Uint8Array>({
-        async pull(controller) {
-          const { done, value } = await reader.read();
-          if (done) {
-            const final = decipher.final();
-            if (final.length > 0) {
-              controller.enqueue(new Uint8Array(final));
-            }
-            controller.close();
-            reader.releaseLock();
-          } else {
-            const decryptedChunk = new Uint8Array(decipher.update(value));
-            processedBytes += value.length;
-            const progress = (processedBytes / totalBytes) * 100;
-            onProgress(progress);
-            controller.enqueue(decryptedChunk);
-          }
-        },
-        cancel() {
-          reader.releaseLock();
-        },
-      });
-      return new Response(decryptedStream).blob();
-    } catch (err) {
-      console.error(err);
+      const { key, iv } = this.splitHexKey(hexKey);
+      const decipher = createDecipheriv("aes-256-cbc", Buffer.from(key, "hex"), Buffer.from(iv, "hex"));
+
+      const chunks: Buffer[] = [];
+      let decryptedBytes = 0;
+      let { done, value } = await reader.read();
+
+      while (!done) {
+        if (value) {
+          const decryptedChunk = decipher.update(value);
+          chunks.push(decryptedChunk);
+          decryptedBytes += value.length;
+          onProgress((decryptedBytes / totalSize) * 100);
+        }
+        ({ done, value } = await reader.read());
+      }
+
+      const finalChunk = decipher.final();
+      if (finalChunk.length > 0) {
+        chunks.push(finalChunk);
+      }
+
+      const decryptedData = Buffer.concat(chunks);
+      return new Blob([decryptedData]);
+    } catch (error) {
+      console.error(error);
+      throw new CryptoStreamError("Decryption failed. See console for details.");
+    } finally {
       reader.releaseLock();
-      throw new CryptoStreamError("An error occurred during decryption. Check your browser console.");
     }
   }
 }

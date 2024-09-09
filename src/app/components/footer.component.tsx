@@ -10,7 +10,7 @@ export default function FooterComponent() {
         <div className="md:flex md:justify-between">
           <div className="mb-10 md:mb-0">
             <div className="flex items-center">
-              <Image src={Logo} width={35} height={35} alt="" />
+              <Image src={Logo} width={35} height={35} alt="" priority />
               <span className="text-2xl font-bold brand-gradient mt-1">Safe Share</span>
             </div>
             <p className="text-gray-500 text-sm mt-1 ml-2">Anonymous file sharing with end-to-end encryption</p>
