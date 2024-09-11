@@ -36,7 +36,6 @@ export default function UploadPage() {
   const [encryptProgress, setEncryptProgress] = useState<number>(0);
   const [uploadProgress, setUploadProgress] = useState<number>(0);
   const [processing, setProcessing] = useState<boolean>(false);
-  const [sizeExceed, setSizeExceed] = useState<boolean>(false);
   const [generatedKey, setGeneratedKey] = useState<string>("");
   const [expiresAt, setExpiresAt] = useState<string>("");
   const [useMerge, setUseMerge] = useState<boolean>(false);
@@ -189,24 +188,16 @@ export default function UploadPage() {
             <input
               type="file"
               {...register("file")}
-              onChange={(e) => {
-                if (e.target.files && e.target.files[0].size > sizeLimit) {
-                  setSizeExceed(true);
-                } else {
-                  setSizeExceed(false);
-                }
-              }}
               multiple={false}
               disabled={processing || unsupportedBrowser}
               required
               className="block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none bg-neutral-100 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 file:bg-gray-50 file:border-0 file:me-4 file:py-3 file:px-4 dark:file:bg-neutral-700 dark:file:text-neutral-200"
             />
-            {sizeExceed && <p className="text-orange-500">{t("FILE_SIZE_LIMIT_EXCEED")}</p>}
             <p>{t("LIMIT_DOWNLOAD_COUNT")}</p>
             <select
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               defaultValue="no_limit"
-              disabled={processing || unsupportedBrowser || sizeExceed}
+              disabled={processing || unsupportedBrowser}
               {...register("count")}
             >
               <option value="no_limit">{t("NO_LIMIT")}</option>
@@ -219,20 +210,14 @@ export default function UploadPage() {
               })}
             </select>
             <label className="inline-flex items-center cursor-pointer">
-              <input
-                type="checkbox"
-                {...register("use_merge")}
-                disabled={processing || unsupportedBrowser || sizeExceed}
-                defaultChecked
-                className="sr-only peer"
-              />
+              <input type="checkbox" {...register("use_merge")} disabled={processing || unsupportedBrowser} defaultChecked className="sr-only peer" />
               <div className="relative w-11 h-6 bg-gray-400 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
               <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">{t("MERGE_KEY")}</span>
             </label>
             <button
               type="submit"
               className="text-white bg-blue-500 hover:bg-blue-600 disabled:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-blue-700 font-medium rounded-lg text-sm px-4 py-2 text-center"
-              disabled={processing || unsupportedBrowser || sizeExceed}
+              disabled={processing || unsupportedBrowser}
             >
               {processing && (
                 <div className="absolute">
