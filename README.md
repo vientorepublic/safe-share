@@ -3,6 +3,7 @@
 [![License](https://img.shields.io/badge/License-MIT-blue)](#license)
 [![stars - safe-share](https://img.shields.io/github/stars/vientorepublic/safe-share?style=social)](https://github.com/vientorepublic/safe-share)
 [![forks - safe-share](https://img.shields.io/github/forks/vientorepublic/safe-share?style=social)](https://github.com/vientorepublic/safe-share)
+[![Nodejs CI](https://github.com/vientorepublic/safe-share/actions/workflows/nodejs.yml/badge.svg)](https://github.com/vientorepublic/safe-share/actions/workflows/nodejs.yml)
 
 ![1725925969747](https://github.com/user-attachments/assets/d423fbfd-39db-44d0-a5da-fd17639f8661)
 
