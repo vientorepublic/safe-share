@@ -10,16 +10,14 @@ import { BrowserStore } from "@/app/store/browser";
 import { useReCaptcha } from "next-recaptcha-v3";
 import { fetcher } from "@/app/utility/fetcher";
 import { Crypto } from "@/app/utility/crypto";
+import { dayjs } from "@/app/utility/dayjs";
 import { useTranslations } from "next-intl";
 import { getCookie } from "cookies-next";
 import { fallback } from "@/app/locales";
 import { Utility } from "@/app/utility";
 import { isAxiosError } from "axios";
 import toast from "react-hot-toast";
-import utc from "dayjs/plugin/utc";
-import dayjs from "dayjs";
 
-dayjs.extend(utc);
 const crypto = new Crypto();
 const utility = new Utility();
 

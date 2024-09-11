@@ -1,11 +1,11 @@
 import { createCipheriv, createDecipheriv, randomBytes } from "crypto";
+import { CryptoModule, ISplitKey } from "../types";
 import { CryptoStreamError } from "./error";
-import { ISplitKey } from "../types";
 
 const KEY_SIZE = 32;
 const IV_SIZE = 16;
 
-export class Crypto {
+export class Crypto implements CryptoModule {
   public generateKey(): Buffer {
     return randomBytes(KEY_SIZE);
   }

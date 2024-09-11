@@ -10,6 +10,7 @@
   "GENERATE_WHEN_PAGE_LOAD": "암호키는 페이지가 로드될 때 무작위로 생성됩니다.",
   "RE_GENERATE_KEY": "키 재생성",
   "MAX_FILE_SIZE": "최대 파일 크기",
+  "FILE_SIZE_LIMIT_EXCEED": "파일 크기 한도를 초과했습니다.",
   "MERGE_KEY": "암호키를 병합하고 공유 링크 생성",
   "SELECT_FILE": "파일 선택",
   "DOWNLOAD_RESULT": "다운로드 결과",
