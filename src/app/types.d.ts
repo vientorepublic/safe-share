@@ -11,6 +11,25 @@ declare global {
   }
 }
 
+export abstract class CryptoModule {
+  public generateKey(): Buffer;
+  public generateIV(): Buffer;
+  public generateHexKey(): string;
+  public splitHexKey(hexStr: string): ISplitKey;
+  public async encryptStream(
+    hexKey: string,
+    reader: ReadableStreamDefaultReader<Uint8Array>,
+    totalSize: number,
+    onProgress: (progress: number) => void
+  ): Promise<Blob>;
+  public async decryptStream(
+    hexKey: string,
+    reader: ReadableStreamDefaultReader<Uint8Array>,
+    totalSize: number,
+    onProgress: (progress: number) => void
+  ): Promise<Blob>;
+}
+
 export interface IErrorResponse {
   message: string;
   error: string;

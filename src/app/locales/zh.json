@@ -10,6 +10,7 @@
   "GENERATE_WHEN_PAGE_LOAD": "加密密钥是在页面加载时随机生成的。",
   "RE_GENERATE_KEY": "重新生成密钥",
   "MAX_FILE_SIZE": "最大文件大小",
+  "FILE_SIZE_LIMIT_EXCEED": "超出文件大小限制。",
   "MERGE_KEY": "合并加密密钥并创建共享链接",
   "SELECT_FILE": "选择文件",
   "DOWNLOAD_RESULT": "下载结果",

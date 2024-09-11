@@ -10,6 +10,7 @@
   "GENERATE_WHEN_PAGE_LOAD": "The encryption key is randomly generated when the page loads.",
   "RE_GENERATE_KEY": "Re-generate Key",
   "MAX_FILE_SIZE": "Max File Size",
+  "FILE_SIZE_LIMIT_EXCEED": "File size limit exceeded.",
   "MERGE_KEY": "Merge encryption keys and create a shared link",
   "SELECT_FILE": "Select File",
   "DOWNLOAD_RESULT": "Download Result",
