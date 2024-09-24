@@ -1,7 +1,8 @@
-import { ISplitIdentifier } from "../types";
+import { ISplitIdentifier, UtilityModule } from "../types";
+import { fallback } from "../locales";
 import toast from "react-hot-toast";
 
-export class Utility {
+export class Utility implements UtilityModule {
   public shortenFileName(fileName: string, maxLength: number): string {
     if (fileName.length <= maxLength) {
       return fileName;
@@ -36,5 +37,22 @@ export class Utility {
       key: decode[0],
       identifier: decode[1].substring(0, 36),
     };
+  }
+
+  public getPreferredLanguage(value: string): string {
+    try {
+      const languages = value.split(",");
+      const languageObjects = languages.map((language) => {
+        const parts = language.trim().split(";");
+        const code = parts[0].split("-")[0];
+        const q = parts[1] ? parseFloat(parts[1].split("=")[1]) : 1;
+        return { code, q };
+      });
+      languageObjects.sort((a, b) => b.q - a.q);
+      const lang = languageObjects[0].code;
+      return lang;
+    } catch (err) {
+      return fallback;
+    }
   }
 }
