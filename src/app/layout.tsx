@@ -7,11 +7,11 @@ import { ReCaptchaProvider } from "next-recaptcha-v3";
 import { NextIntlClientProvider } from "next-intl";
 import { cookies, headers } from "next/headers";
 import { getMessages } from "next-intl/server";
-import { getPreferredLanguage } from "@/i18n";
 import { fallback, locales } from "./locales";
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "react-hot-toast";
 import type { Metadata } from "next";
+import { Utility } from "./utility";
 import "@/app/static/css/main.css";
 import "@/app/globals.css";
 config.autoAddCss = false;
@@ -31,6 +31,8 @@ export const metadata: Metadata = {
   },
 };
 
+const utility = new Utility();
+
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -40,7 +42,7 @@ export default async function RootLayout({
   const cookie = cookies();
   const headersList = headers();
   const acceptLanguage = headersList.get("accept-language");
-  const detectedLanguage = acceptLanguage ? getPreferredLanguage(acceptLanguage) : fallback;
+  const detectedLanguage = acceptLanguage ? utility.getPreferredLanguage(acceptLanguage) : fallback;
   locale = (locales.find((e) => e.code === detectedLanguage) && detectedLanguage) || fallback;
   const languageCookie = cookie.get("language");
   if (languageCookie) {

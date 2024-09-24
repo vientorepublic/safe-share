@@ -30,6 +30,27 @@ export abstract class CryptoModule {
   ): Promise<Blob>;
 }
 
+export abstract class UtilityModule {
+  public shortenFileName(fileName: string, maxLength: number): string;
+  public copyClipboard(text: string): void;
+  public formatBytes(bytes: number): string;
+  public splitIdentifier(id: string): ISplitIdentifier | null;
+  public getPreferredLanguage(value: string): string;
+}
+
+export interface IUserAgent {
+  isMobile: () => boolean;
+  isDesktop: () => boolean;
+  isAndroid: () => boolean;
+  isIos: () => boolean;
+  isSSR: () => boolean;
+  isSafari: () => boolean;
+}
+
+export interface IBrowserDetection {
+  unsupportedBrowser: boolean;
+}
+
 export interface IErrorResponse {
   message: string;
   error: string;
@@ -92,17 +113,4 @@ export interface FileDetails {
   original_filename: string;
   size: number;
   mime_type: string;
-}
-
-export interface IUserAgent {
-  isMobile: () => boolean;
-  isDesktop: () => boolean;
-  isAndroid: () => boolean;
-  isIos: () => boolean;
-  isSSR: () => boolean;
-  isSafari: () => boolean;
-}
-
-export interface IBrowserDetection {
-  unsupportedBrowser: boolean;
 }
